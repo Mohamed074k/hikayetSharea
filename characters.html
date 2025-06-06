@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الشخصيات - Hikayt Sharea</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .characters-page {
+            padding: 2rem;
+            /* background-color: #f8f9fa; */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .characters-title {
+            text-align: center;
+            color: #2d136b;
+            background-color: #dfb5af;
+            padding: 12px 22px;
+            border-radius: 20px;
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 3rem;
+            font-weight: bold;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .character-section {
+            max-width: 700px;
+            margin: 0 auto 4rem;
+            text-align: center;
+            padding: 0 1rem;
+            position: relative;
+        }
+
+        .character-image {
+            width: 80%;
+            max-width: 500px;
+            min-height: 400px;
+            object-fit: cover;
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .favorite-btn {
+            position: absolute;
+            top: 1rem;
+            right: calc(50% - 250px + 1rem);
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .favorite-btn i {
+            color: #890001;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .favorite-btn:hover {
+            background: #890001;
+        }
+
+        .favorite-btn:hover i {
+            color: white;
+        }
+
+        .character-name {
+            color: #890001;
+            font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+            margin-bottom: 1rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .character-name::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background-color: #890001;
+            border-radius: 2px;
+        }
+
+        .character-description {
+            color: black;
+            font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+            line-height: 1.6;
+            /* margin-bottom: 2rem; */
+        }
+
+        .more-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #890001;
+            text-decoration: none;
+            font-size: clamp(0.9rem, 2.5vw, 1.5rem);
+            transition: color 0.3s;
+        }
+
+        .more-link:hover {
+            color: #a10f0f;
+        }
+
+        @media screen and (max-width: 768px) {
+            .characters-page {
+                padding: 1rem;
+            }
+
+            .character-image {
+                height: 350px;
+            }
+
+            .favorite-btn {
+                right: calc(50% - 200px + 1rem);
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .character-image {
+                height: 250px;
+            }
+
+            .favorite-btn {
+                right: calc(50% - 150px + 1rem);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-container">
+
+        <!-- Navbar -->
+        <nav class="navbar" style="background-color: transparent; padding:10px 10px 45px; border-radius: 0 0 25px 25px;">
+            <div class="navbar-container">
+                <!-- Right Section -->
+                <div class="right-section">
+                    <!-- Logo -->
+                    <div class="logo-container">
+                        <img class="logo" src="images/logo.png" alt="Logo">
+                    </div>
+                              <!--Search Box-->
+                        <div class="search-box">
+        <button class="btn-search"><i class="fas fa-search"></i></button>
+        <input type="text" class="input-search" placeholder="Type to Search...">
+      </div>
+      </div>
+       <!-- Center Section - Navigation Links -->
+            <div class="center-section">
+                <div class="nav-links-container" style="background-color: #dfb5af;">
+                    <div class="nav-links">
+                        <a href="streets.html" style="color: #890001; font-size: 1.1rem;">الشوارع</a>
+                        <a href="characters.html" style="color: #890001; font-size: 1.1rem;">شخصيات</a>
+                        <a href="index.html#gawalat" style="color: #890001; font-size: 1.1rem;">جولات</a>
+                        <a href="favorites.html" style="color: #890001; font-size: 1.1rem;">المفضله</a>
+                    </div>
+                </div>
+            </div>
+    
+                <!-- Left Section -->
+                <div class="left-section">
+                    <!-- Login Button -->
+                    <button class="login-button">
+                        Login
+                    </button>
+                    <!-- Menu Button -->
+                    <button id="menuButton" class="menu-button">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    
+        <!-- Characters Page Content -->
+        <section class="characters-page">
+            <h1 class="characters-title">الشخصيات</h1>
+                 <!-- Character 3 -->
+            <div class="character-section">
+                <!-- <img src="images/Seated_drinker,_from_a_bath_complex_in_Fustat.jpg" alt="الشخصية الثالثة" class="character-image"> -->
+                <img src="https://ichef.bbci.co.uk/ace/ws/521/cpsprodpb/58f8/live/0bccb0f0-d64b-11ef-91a4-11a6ea47f582.jpg.webp" alt="الشخصية الثالثة" class="character-image">
+                <button class="favorite-btn">
+                    <i class="far fa-heart"></i>
+                </button>
+                <h2 class="character-name">الحاكم بامر الله  </h2>
+                <p class="character-description">
+                    الحاكم بأمر الله هو المنصور بن العزيز بالله نزار بن المعز لدين الله معد بن المنصور إسماعيل بن القائم بأمر الله محمد بن عبيد الله المهدي، ولقبه الحاكم بأمر الله وكنيته أبو علي.
+                </p>
+                <a href="character-details.html?id=alhakim" class="more-link">
+                    للمزيد
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+            </div>
+            
+    <!-- Character 1 -->
+    <div class="character-section">
+        <img src="images/910.jpg" alt="الشخصية الأولى" class="character-image">
+        <button class="favorite-btn">
+            <i class="far fa-heart"></i>
+        </button>
+                <h2 class="character-name">محمد علي باشا </h2>
+                <p class="character-description">
+                    هو مؤسس الأسره العلويه و حاكم مصر بين عامي 1805 إلي 1848 ، ويشيع وصفه بأنه <<مؤسس مصر الحديثه>> وهي مقوله كان هو نفسه أول من روج لها واستمرت بعده بشكل منظم وملفت . استطاع ان يعتلي عرش مصر
+                </p>
+                <a href="character-details.html?id=cmohamed-ali" class="more-link">
+                    للمزيد
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+            </div>
+            
+            <!-- Character 2 -->
+            <div class="character-section">
+                <img src="images/71.webp" alt="الشخصية الثانية" class="character-image">
+                <button class="favorite-btn">
+                    <i class="far fa-heart"></i>
+                </button>
+                <h2 class="character-name">الظاهر سيف الدين برقوق </h2>
+                <p class="character-description">
+                    السلطان الملك الظاهر سيف الدين برقوق بن انس بن عبدالله الشركسي، وُلد في القفقاس عام 1340م ( 740 هـ) وقدم للقاهره وعمره 20 عاما ليلتحق بالجيش المصري
+                 </p>
+                <a href="character-details.html?id=alzaher-seif-eldin" class="more-link">
+                    للمزيد
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+            </div>
+        </section>
+    </div>
+
+    
+    
+       
+    <!-- Footer -->
+    <footer class="footer">
+        <!-- Map Section -->
+        <div class="map-container">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3452.469981368283!2d31.2359119!3d30.0444199!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x145822a1a4a1a1a1%3A0x1a4a1a1a1a1a1a1a!2sCairo%2C%20Egypt!5e0!3m2!1sen!2seg!4v1620000000000!5m2!1sen!2seg" 
+                width="100%" 
+                height="450" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy">
+            </iframe>
+        </div>
+
+        <!-- Links Section -->
+        <div class="footer-links">
+            <div class="footer-links-container">
+                <!-- About Section -->
+                <div class="footer-link-section">
+                    <a href="#" class="footer-link">
+                        عن الموقع
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                </div>
+
+                <!-- Streets Section -->
+                <div class="footer-link-section">
+                    <a href="#" class="footer-link">
+                        الشوارع
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                </div>
+
+                <!-- Places Section -->
+                <div class="footer-link-section">
+                    <a href="#" class="footer-link">
+                        اماكن للزياره
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                </div>
+
+                <!-- Contact Section -->
+                <div class="footer-link-section">
+                    <a href="#" class="footer-link">
+                        اتصل بنا
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="faq-section">
+            <div class="faq-container">
+                <h3 class="faq-title">اسئلة شائعة</h3>
+                <div class="faq-items">
+                    <div class="faq-item">
+                        <button class="faq-btn">ما هي اهم المعالم التاريخية في شارع المعز؟</button>
+                        <div class="faq-answer">
+                            <p>يضم شارع المعز العديد من المعالم التاريخية المهمة مثل مسجد الحاكم بأمر الله، وسبيل محمد علي، وقصر الأمير بشتاك، وغيرها من الآثار الإسلامية العريقة.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-btn">كيف يمكنني الوصول الى شارع المعز؟</button>
+                        <div class="faq-answer">
+                            <p>يمكن الوصول إلى شارع المعز عبر مترو الأنفاق (محطة الجمالية) أو باستخدام وسائل النقل العام أو سيارات الأجرة. كما يمكن الوصول إليه سيراً على الأقدام من منطقة الأزهر.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-btn">ما هي أفضل الأوقات لزيارة شارع المعز؟</button>
+                        <div class="faq-answer">
+                            <p>أفضل الأوقات لزيارة شارع المعز هي في الصباح الباكر أو بعد العصر، حيث يكون الطقس مناسباً للتنزه. كما يمكن زيارة الشارع في المساء للاستمتاع بالأجواء الرمضانية المميزة.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <!-- Social Media Section -->
+        <div class="social-media">
+            <div class="social-media-container">
+                <a href="#" class="social-icon"><img src="https://img.freepik.com/free-vector/instagram-logo_1199-122.jpg?semt=ais_hybrid&w=740" alt="Instagram" style="width: 50px; height: 50px; border-radius: 25%;"></a>
+                <a href="#" class="social-icon"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6HMrE7xvKu5-UahOPBs3GcE4AZJk8LsX7tg&s" alt="Google" style="width: 50px; height: 50px; border-radius: 25%;"></a>
+                <a href="#" class="social-icon"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Facebook_logo_%28square%29.png/960px-Facebook_logo_%28square%29.png" alt="Facebook" style="width: 50px; height: 50px; border-radius: 25%;"></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Side Menu -->
+    <div id="sideMenu" class="side-menu">
+        <div class="side-menu-content">
+            <button id="closeMenu" class="close-menu">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="side-menu-logo">
+                <img src="images/logo.png" alt="Logo">
+            </div>
+         <div class="side-menu-links">
+        <a href="streets.html">الشوارع</a>
+                <a href="places.html">اماكن مهمه للزياره</a>
+                <a href="streets.html">احجز جولتك</a>
+                <a href="characters.html">شخصيات</a>
+                 <a href="about.html">من نحن</a>
+                <a href="profile.html">الملف الشخصي</a>
+             </div>
+        </div>
+    </div>
+
+ 
+
+    <script src="script.js"></script>
+    <script>
+        // Favorite button functionality
+        const favoriteBtns = document.querySelectorAll('.favorite-btn');
+        
+        favoriteBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const icon = this.querySelector('i');
+                icon.classList.toggle('far');
+                icon.classList.toggle('fas');
+            });
+        });
+    </script>
+</body>
+</html> 

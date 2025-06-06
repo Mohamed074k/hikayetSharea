@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تفاصيل الشارع - Hikayt Sharea</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .street-details-page {
+            padding: 2rem;
+            /* background-color: #f8f9fa; */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .street-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .street-title {
+            color: #2d136b;
+            background-color: #dfb5af;
+            padding: 9px 22px;
+            border-radius: 20px;
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: bold;
+            width: fit-content;
+            margin: 0 auto 1rem;
+            position: relative;
+        }
+
+        .street-slider {
+            margin-bottom: 3rem;
+        }
+
+        .slider-container {
+            position: relative;
+            width: 70%;
+            max-width: 500px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 15px;
+        }
+
+        .slider-wrapper {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .slider-wrapper img {
+            width: 100%;
+            height: 500px;
+            border-radius: 20px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #890001;
+            transition: all 0.3s ease;
+        }
+
+        .slider-btn:hover {
+            background: #890001;
+            color: white;
+        }
+
+        .prev-btn {
+            right: 1rem;
+        }
+
+        .next-btn {
+            left: 1rem;
+        }
+
+        .street-section {
+            /* background: white; */
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            /* box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); */
+        }
+
+        .section-title {
+            color: #2d136b;
+            font-size: 2.4rem;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 100px;
+            height: 3px;
+            background-color: #2d136b;
+            border-radius: 2px;
+        }
+
+ 
+      .street-description {
+            color: black;
+            line-height: 1.8;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        @media screen and (max-width: 748px) {
+            .street-description {
+                    font-size: 1.3rem;
+                
+                }
+        }
+        .places-list, .activities-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .places-list li, .activities-list li {
+            position: relative;
+            padding-right: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #666;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .places-list li::before, .activities-list li::before {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            background-color: #d68711;
+            border-radius: 50%;
+            margin-left: 0.5rem;
+        }
+
+        .tour-booking {
+            text-align: center;
+            padding: 2rem;
+            /* background: #f8f9fa; */
+            border-radius: 15px;
+        }
+
+        .booking-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #890001;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .booking-btn:hover {
+            background: #a10f0f;
+            transform: translateY(-2px);
+        }
+
+        @media screen and (max-width: 768px) {
+            .street-details-page {
+                padding: 1rem;
+            }
+
+            .street-section {
+                padding: 1.5rem;
+            }
+
+            .slider-wrapper img {
+                height: 400px;
+            }
+
+            .slider-btn {
+                width: 35px;
+                height: 35px;
+            }
+
+            .places-list, .activities-list {
+                grid-template-columns: 1fr;
+            }
+        }
+                @media screen and (max-width: 520px) {
+                .slider-container{
+                    width: 100%;
+                }
+                }
+    </style>
+</head>
+<body>
+    <div class="background-container">
+
+        <!-- Navbar -->
+    <nav class="navbar" style="    background-color: transparent; padding:10px 10px 45px; border-radius: 0 0 25px 25px;">
+        <div class="navbar-container">
+            <!-- Right Section -->
+            <div class="right-section">
+                <!-- Logo -->
+                <div class="logo-container">
+                    <img class="logo" src="images/logo.png" alt="Logo">
+                </div>
+                        <!--Search Box-->
+                        <div class="search-box">
+        <button class="btn-search"><i class="fas fa-search"></i></button>
+        <input type="text" class="input-search" placeholder="Type to Search...">
+      </div>
+      </div>
+
+        <!-- Center Section - Navigation Links -->
+            <div class="center-section">
+                <div class="nav-links-container" style="background-color: #dfb5af;">
+                    <div class="nav-links">
+                        <a href="streets.html" style="color: #890001; font-size: 1.1rem;">الشوارع</a>
+                        <a href="characters.html" style="color: #890001; font-size: 1.1rem;">شخصيات</a>
+                        <a href="index.html#gawalat" style="color: #890001; font-size: 1.1rem;">جولات</a>
+                        <a href="favorites.html" style="color: #890001; font-size: 1.1rem;">المفضله</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Left Section -->
+            <div class="left-section">
+                <!-- Login Button -->
+                <button class="login-button">
+                    Login
+                </button>
+                <!-- Menu Button -->
+                <button id="menuButton" class="menu-button">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+        <!-- Street Details Content -->
+        <section class="street-details-page">
+            <div class="street-header">
+                <h1 class="street-title" id="streetName">شارع المعز</h1>
+            </div>
+    
+            <div class="street-content">
+                <!-- Image Slider -->
+                <div class="street-slider">
+                    <div class="slider-container">
+                        <div class="slider-wrapper" id="sliderWrapper">
+                            <!-- Images will be added dynamically -->
+                        </div>
+                        <!-- <button class="slider-btn prev-btn">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                        <button class="slider-btn next-btn">
+                            <i class="fas fa-chevron-left"></i>
+                        </button> -->
+                    </div>
+                </div>
+    
+                <!-- Street Overview -->
+                <div class="street-section">
+                    <h2 class="section-title">عن الشارع</h2>
+                    <p class="street-description" id="streetOverview">
+                        شارع المعز لدين الله الفاطمي هو أحد أهم الشوارع التاريخية في القاهرة، يمتد من باب الفتوح شمالاً حتى باب زويلة جنوباً، ويضم العديد من المعالم الأثرية الإسلامية.
+                    </p>
+                </div>
+    
+                <!-- Street Naming -->
+                <div class="street-section">
+                    <h2 class="section-title">التسمية</h2>
+                    <p class="street-description" id="streetNaming">
+                        سمي الشارع بهذا الاسم نسبة إلى الخليفة الفاطمي المعز لدين الله، مؤسس مدينة القاهرة. وكان يعرف قديماً باسم "الشارع الأعظم" و"قصر الشوك".
+                    </p>
+                </div>
+    
+                <!-- Places to Visit -->
+                <div class="street-section">
+                    <h2 class="section-title">اماكن للزياره</h2>
+                    <ul class="places-list" id="placesList">
+                        <li>بيت السحيمي</li>
+                        <li>مدرسة السلطان برقوق</li>
+                        <li>مسجد الحاكم بأمر الله</li>
+                        <li>سبيل محمد علي</li>
+                        <li>قصر الأمير بشتاك</li>
+                        <li>مسجد الأقمر</li>
+                    </ul>
+                </div>
+    
+                <!-- Activities -->
+                <div class="street-section">
+                    <h2 class="section-title">الانشطه</h2>
+                    <ul class="activities-list" id="activitiesList">
+                        <li>جولات سياحية إرشادية</li>
+                        <li>زيارة المتاحف والمعالم التاريخية</li>
+                        <li>التسوق من المحلات التقليدية</li>
+                        <li>تذوق المأكولات الشعبية</li>
+                        <li>التقاط الصور التذكارية</li>
+                        <li>حضور الفعاليات الثقافية</li>
+                    </ul>
+                </div>
+    
+                <!-- Tour Booking -->
+                <div class="street-section">
+                    <h2 class="section-title">لحجز جوله</h2>
+                    <div class="tour-booking">
+                      
+                        <a href="booking-tour.html?id=STREET_ID" class="booking-btn">
+                            اضغط هنا
+                            <i class="fas fa-ticket-alt"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <!-- Map Section -->
+        <div class="map-container">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3452.469981368283!2d31.2359119!3d30.0444199!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x145822a1a4a1a1a1%3A0x1a4a1a1a1a1a1a1a!2sCairo%2C%20Egypt!5e0!3m2!1sen!2seg!4v1620000000000!5m2!1sen!2seg" 
+                width="100%" 
+                height="450" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy">
+            </iframe>
+        </div>
+
+        <!-- Links Section -->
+        <div class="footer-links">
+            <div class="footer-links-container">
+                <!-- About Section -->
+                <div class="footer-link-section">
+                    <a href="#" class="footer-link">
+                        عن الموقع
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                </div>
+
+                <!-- Streets Section -->
+                <div class="footer-link-section">
+                    <a href="#" class="footer-link">
+                        الشوارع
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                </div>
+
+                <!-- Places Section -->
+                <div class="footer-link-section">
+                    <a href="#" class="footer-link">
+                        اماكن للزياره
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                </div>
+
+                <!-- Contact Section -->
+                <div class="footer-link-section">
+                    <a href="#" class="footer-link">
+                        اتصل بنا
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="faq-section">
+            <div class="faq-container">
+                <h3 class="faq-title">اسئلة شائعة</h3>
+                <div class="faq-items">
+                    <div class="faq-item">
+                        <button class="faq-btn">ما هي اهم المعالم التاريخية في شارع المعز؟</button>
+                        <div class="faq-answer">
+                            <p>يضم شارع المعز العديد من المعالم التاريخية المهمة مثل مسجد الحاكم بأمر الله، وسبيل محمد علي، وقصر الأمير بشتاك، وغيرها من الآثار الإسلامية العريقة.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-btn">كيف يمكنني الوصول الى شارع المعز؟</button>
+                        <div class="faq-answer">
+                            <p>يمكن الوصول إلى شارع المعز عبر مترو الأنفاق (محطة الجمالية) أو باستخدام وسائل النقل العام أو سيارات الأجرة. كما يمكن الوصول إليه سيراً على الأقدام من منطقة الأزهر.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-btn">ما هي أفضل الأوقات لزيارة شارع المعز؟</button>
+                        <div class="faq-answer">
+                            <p>أفضل الأوقات لزيارة شارع المعز هي في الصباح الباكر أو بعد العصر، حيث يكون الطقس مناسباً للتنزه. كما يمكن زيارة الشارع في المساء للاستمتاع بالأجواء الرمضانية المميزة.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <!-- Social Media Section -->
+        <div class="social-media">
+            <div class="social-media-container">
+                <a href="#" class="social-icon"><img src="https://img.freepik.com/free-vector/instagram-logo_1199-122.jpg?semt=ais_hybrid&w=740" alt="Instagram" style="width: 50px; height: 50px; border-radius: 25%;"></a>
+                <a href="#" class="social-icon"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6HMrE7xvKu5-UahOPBs3GcE4AZJk8LsX7tg&s" alt="Google" style="width: 50px; height: 50px; border-radius: 25%;"></a>
+                <a href="#" class="social-icon"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Facebook_logo_%28square%29.png/960px-Facebook_logo_%28square%29.png" alt="Facebook" style="width: 50px; height: 50px; border-radius: 25%;"></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Side Menu -->
+    <div id="sideMenu" class="side-menu">
+        <div class="side-menu-content">
+            <button id="closeMenu" class="close-menu">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="side-menu-logo">
+                <img src="images/logo.png" alt="Logo">
+            </div>
+             <div class="side-menu-links">
+        <a href="streets.html">الشوارع</a>
+                <a href="places.html">اماكن مهمه للزياره</a>
+                <a href="streets.html">احجز جولتك</a>
+                <a href="characters.html">شخصيات</a>
+                 <a href="about.html">من نحن</a>
+                <a href="profile.html">الملف الشخصي</a>
+             </div>
+        </div>
+    </div>
+
+ 
+
+    <script src="script.js"></script>
+    <script>
+        // Get street data based on ID from URL
+        function getStreetData() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const streetId = urlParams.get('id');
+            
+            // This would typically be an API call, but for now we'll use static data
+            const streetsData = {
+                'al-muizz': {
+                    name: 'شارع المعز',
+                    overview: 'شارع المعز لدين الله الفاطمي أو الشارع الأعظم أو قصبة القاهرة أو قصبة القاهرة الكبرى هو شارع يمثل قلب مدينة القاهرة القديمة والذي تم تطويره لكي يكون متحفاً مفتوحاً للعمارة والآثار الإسلامية. مع نشأة مدينة القاهرة خلال عهد الدولة الفاطمية في مصر نشأ شارع المعز فكان تخطيط المدينة يخترقه شارع رئيس يمتد من باب زويلة جنوباً وحتى باب الفتوح شمالاً في موازاة الخليج، وأطلق عليه الشارع الأعظم وفي مرحلة لاحقة قصبة القاهرة، قسم المدينة قسمين شبه متساويين وكان المركز السياسي والروحي للمدينة.',
+                    naming: 'أطلق على الشارع قديماً عدة أسماء هي الشارع الأعظم وقصبة القاهرة وقصبة القاهرة الكبرى، وأخيراً أطلق عليه اسم شارع المعز لدين الله الفاطمي سنة 1937 تكريماً لمنشئ القاهرة، وتمتد تلك التسمية من باب الفتوح إلى باب زويلة، شاملة شوارع باب الفتوح، أمير الجيوش، النحاسين، بين القصرين، الصاغة، الأشرفية، الشوايين، العقادين، المناخلية، والمنجدين، السكرية إلى باب زويلة.',              
+                         places: [
+                        'بيت السحيمي',
+                        'مدرسة السلطان برقوق',
+                        'مسجد الحاكم بأمر الله',
+                        'سبيل محمد علي',
+                        'قصر الأمير بشتاك',
+                        'مسجد الأقمر'
+                    ],
+                    activities: [
+                        'جولات سياحية إرشادية',
+                        'زيارة المتاحف والمعالم التاريخية',
+                        'التسوق من المحلات التقليدية',
+                        'تذوق المأكولات الشعبية',
+                        'التقاط الصور التذكارية',
+                        'حضور الفعاليات الثقافية'
+                    ],
+                    images: [
+                        'images/image_fx (75).jpg',
+                    
+                    ]
+                },
+                'al-sagha': {
+                    name: 'شارع الصاغة',
+                    overview: 'الصاغه حى فى القاهره و هو ده مركز بيع الصيغه الدهب فى القاهره ، بيتفرع من شارع الموسكى قبل الازهر و بينتهى عند خان الخليلى و النحاسين. فيه محلات كتيره بتبيع الصيغه و الأحجار الكريمه ، و بيتميز بحواريه الضيقه و بيتسمى شارع الدهب.',
+                    naming: 'ده حى الصيغه الدهب فى القاهره ، بيتفرع من شارع الموسكى قبل الازهر و بينتهى عند خان الخليلى و النحاسين. فيه محلات كتيره بتبيع الصيغه و الأحجار الكريمه ، و بيتميز بحواريه الضيقه و بيتسمى شارع الدهب.',
+                    places: [
+                        'محلات المجوهرات التقليدية',
+                        'ورش صناعة الذهب',
+                        'المتحف الإسلامي',
+                        'المساجد التاريخية'
+                    ],
+                    activities: [
+                        'شراء المجوهرات التقليدية',
+                        'مشاهدة صناعة الذهب',
+                        'التسوق من المحلات التراثية',
+                        'التقاط الصور التذكارية'
+                    ],
+                    images: [
+                        'images/hero - Copy.jpg',
+                         
+                    ]
+                },
+                'al-khayameya': {
+                    name: 'شارع الخيامية',
+                    overview: 'أمام باب زويلة بالقرب من منطقة «تحت الربع» يقع شارع الخيامية وهو أحد أشهر أسواق القاهرة المسقوفة والذي يقع على امتداد شارع المعز وقد سمى بهذا الاسم نسبة لتلك الحرفة، فما أن تدخل ذلك الشارع حتى تجد على جنباته مجموعة من الورش التي تخصصت قي هذا النوع من التراث الفني العريق.وهذا الشارع موجود منذ أيام الفاطميين وهو يتكون من طابقين وقد كان باب زويلة يغلق ليلاً ويفتح قي النهار وكان يسمح للتجار بالدخول صباحاً لمباشرة أعمالهم وأماكن الورش التي نتواجد فيها الآن كانت قديماً إسطبلاً للخيول والطابق الذي يعلوه كان أماكن لمبيت التجار الذين يأتون من المغرب والشام، وقد كان لهؤلاء التجار خيام يستخدمونها قي سفرهم، وكانوا يعملون على إصلاحها قي تلك المنطقة، كما كان يحرص كل منهم أن تختلف خيمته عن الخيام الأخرى ومن هنا بدأت مهنة الخيامية.',
+                    naming: 'سمي الشارع بهذا الاسم نسبة إلى حرفة صناعة الخيام التي كانت تميزه، حيث كان مركزاً لصناعة وتجارة الخيام والمنسوجات.',
+                    places: [
+                        'محلات الخيام والمنسوجات',
+                        'ورش صناعة الخيام',
+                        'المساجد التاريخية',
+                        'المتاحف التراثية'
+                    ],
+                    activities: [
+                        'شراء الخيام والمنسوجات',
+                        'مشاهدة صناعة الخيام',
+                        'التسوق من المحلات التراثية',
+                        'التقاط الصور التذكارية'
+                    ],
+                    images: [
+                        'images/H1.jpg',
+                        
+                    ]
+                }
+            };
+
+            const streetData = streetsData[streetId] || streetsData['al-muizz'];
+            
+            // Update page content
+            document.getElementById('streetName').textContent = streetData.name;
+            document.getElementById('streetOverview').textContent = streetData.overview;
+            document.getElementById('streetNaming').textContent = streetData.naming;
+            
+            // Update places list
+            const placesList = document.getElementById('placesList');
+            placesList.innerHTML = streetData.places.map(place => `
+                <li>${place}</li>
+            `).join('');
+            
+            // Update activities list
+            const activitiesList = document.getElementById('activitiesList');
+            activitiesList.innerHTML = streetData.activities.map(activity => `
+                <li>${activity}</li>
+            `).join('');
+            
+            // Update slider images
+            const sliderWrapper = document.getElementById('sliderWrapper');
+            sliderWrapper.innerHTML = streetData.images.map(img => `
+                <img src="${img}" alt="${streetData.name}">
+            `).join('');
+
+            // Initialize slider
+            // let currentSlide = 0;
+            // const slides = sliderWrapper.children;
+            // const totalSlides = slides.length;
+
+            // function updateSlider() {
+            //     sliderWrapper.style.transform = `translateX(-${currentSlide * 100}%)`;
+            // }
+
+            // document.querySelector('.prev-btn').addEventListener('click', () => {
+            //     currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            //     updateSlider();
+            // });
+
+            // document.querySelector('.next-btn').addEventListener('click', () => {
+            //     currentSlide = (currentSlide + 1) % totalSlides;
+            //     updateSlider();
+            // });
+
+            // Update booking button link with the current street ID
+            const bookingButton = document.querySelector('.booking-btn');
+            if (bookingButton) {
+                bookingButton.href = `booking-tour.html?id=${streetId}`;
+            }
+        }
+
+        // Call the function when page loads
+        window.addEventListener('load', getStreetData);
+    </script>
+</body>
+</html> 

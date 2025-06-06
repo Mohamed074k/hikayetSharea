@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تفاصيل المكان - Hikayt Sharea</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .place-details-page {
+            padding: 2rem;
+            /* background-color: #f8f9fa; */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .place-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .place-title {
+            color: #2d136b;
+            background-color: #dfb5af;
+            padding: 12px 22px;
+            border-radius: 20px;
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: bold;
+            width: fit-content;
+            margin: 0 auto 1rem;
+            position: relative;
+        }
+
+        .place-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            aspect-ratio: 16/9;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .place-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .place-section {
+            /* background: white; */
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            /* box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); */
+        }
+
+        .section-title {
+            color: #2d136b;
+            font-size: 2.4rem;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 100px;
+            height: 3px;
+            background-color: #2d136b;
+            border-radius: 2px;
+        }
+
+        .place-description {
+            color: black;
+            line-height: 1.8;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        @media screen and (max-width: 748px) {
+            .place-description {
+                    font-size: 1.3rem;
+                
+                }
+        }
+        .place-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            /* background: #faf9f8; */
+            border-radius: 10px;
+        }
+
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            background: #dfb5af;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #890001;
+            font-size: 1.2rem;
+        }
+
+        .feature-text {
+            color: #666;
+        }
+
+        .feature-title {
+            font-weight: bold;
+            color: #2d136b;
+            margin-bottom: 0.25rem;
+        }
+
+ 
+
+        .place-slider {
+            margin-bottom: 3rem;
+        }
+
+        .slider-container {
+            position: relative;
+            width: 70%;
+            max-width: 1200px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 15px;
+        }
+
+        .slider-wrapper {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .slider-wrapper img {
+            width: 100%;
+            height: 500px;
+                        border-radius: 20px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #890001;
+            transition: all 0.3s ease;
+        }
+
+        .slider-btn:hover {
+            background: #890001;
+            color: white;
+        }
+
+        .prev-btn {
+            right: 1rem;
+        }
+
+        .next-btn {
+            left: 1rem;
+        }
+
+        .ticket-booking {
+            text-align: center;
+            padding: 2rem;
+            /* background: #f8f9fa; */
+            border-radius: 15px;
+        }
+
+        .booking-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #890001;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .booking-btn:hover {
+            background: #a10f0f;
+            transform: translateY(-2px);
+        }
+
+        @media screen and (max-width: 768px) {
+            .place-details-page {
+                padding: 1rem;
+            }
+
+            .place-section {
+                padding: 1.5rem;
+            }
+
+            .gallery-item {
+                aspect-ratio: 4/3;
+            }
+
+            .slider-wrapper img {
+                height: 400px;
+            }
+
+            .slider-btn {
+                width: 35px;
+                height: 35px;
+            }
+        }
+                 @media screen and (max-width: 520px) {
+                .slider-container{
+                    width: 100%;
+                }
+            }
+    </style>
+</head>
+<body>
+    <div class="background-container">
+
+        <!-- Navbar -->
+        <nav class="navbar" style="background-color: transparent; padding:10px 10px 45px; border-radius: 0 0 25px 25px;" dir="rtl">
+            <div class="navbar-container">
+                <!-- Right Section -->
+                <div class="right-section">
+                    <!-- Logo -->
+                    <div class="logo-container">
+                        <img class="logo" src="images/logo.png" alt="Logo">
+                    </div>
+                      <!--Search Box-->
+                        <div class="search-box">
+        <button class="btn-search"><i class="fas fa-search"></i></button>
+        <input type="text" class="input-search" placeholder="Type to Search...">
+      </div>
+      </div>
+
+           <!-- Center Section - Navigation Links -->
+            <div class="center-section">
+                <div class="nav-links-container" style="background-color: #dfb5af;">
+                    <div class="nav-links">
+                        <a href="streets.html" style="color: #890001; font-size: 1.1rem;">الشوارع</a>
+                        <a href="characters.html" style="color: #890001; font-size: 1.1rem;">شخصيات</a>
+                        <a href="index.html#gawalat" style="color: #890001; font-size: 1.1rem;">جولات</a>
+                        <a href="favorites.html" style="color: #890001; font-size: 1.1rem;">المفضله</a>
+                    </div>
+                </div>
+            </div>
+                <!-- Left Section -->
+                <div class="left-section">
+                    <!-- Login Button -->
+                    <button class="login-button">
+                        Login
+                    </button>
+                    <!-- Menu Button -->
+                    <button id="menuButton" class="menu-button">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    
+        <!-- Place Details Content -->
+        <section class="place-details-page">
+            <div class="place-header">
+                <h1 class="place-title" id="placeName">بيت السحيمي</h1>
+            </div>
+    
+            <div class="place-content">
+                <!-- Image Slider -->
+                <div class="place-slider">
+                    <div class="slider-container">
+                        <div class="slider-wrapper" id="sliderWrapper">
+                            <!-- Images will be added dynamically -->
+                        </div>
+                   
+                    </div>
+                </div>
+    
+                <!-- Place Overview -->
+                <div class="place-section">
+                    <h2 class="section-title">عن المكان</h2>
+                    <p class="place-description" id="placeOverview">
+                        بيت السحيمي او بيت الشيخ عبدالوهاب الطبلاوي هو بيت عربي ذو معملر شرقي متميز يثع في حارة الدرب الجماليه في قلب مدينه القاهره
+                    </p>
+                </div>
+    
+                <!-- Location -->
+                <div class="place-section">
+                    <h2 class="section-title">الموقع</h2>
+                    <p class="place-description" id="placeLocation">
+                        يقع بيت السحيمي في حارة الدرب الأصفر بشارع المعز لدين الله الفاطمي، في قلب القاهرة التاريخية، بالقرب من مسجد الحاكم بأمر الله.
+                    </p>
+                  
+                </div>
+    
+                <!-- House Description -->
+                <div class="place-section">
+                    <h2 class="section-title">الوصف</h2>
+                    <p class="place-description" id="houseDescription">
+                        يتكون البيت من قسمين: القسم الأول بناه الشيخ عبد الوهاب الطبلاوي عام 1648م، والقسم الثاني بناه الشيخ محمد بن الحاج سالم بن جملة عام 1699م. يتميز البيت بتصميمه المعماري الفريد وزخارفه الإسلامية الرائعة.
+                    </p>
+                </div>
+    
+                <!-- Restoration -->
+                <div class="place-section">
+                    <h2 class="section-title">الترميم</h2>
+                    <p class="place-description" id="restorationInfo">
+                        تم ترميم البيت بشكل كامل في عام 1997م تحت إشراف وزارة الآثار المصرية، حيث تم إعادة تأهيل جميع العناصر المعمارية والزخرفية إلى حالتها الأصلية.
+                    </p>
+                </div>
+    
+                <!-- Ticket Booking -->
+                <div class="place-section">
+                    <h2 class="section-title">لحجز التذاكر</h2>
+                    <div class="ticket-booking">
+                     
+                        <a href="booking.html?id=PLACE_ID" class="booking-btn">
+                            اضغط هنا
+                            <i class="fas fa-ticket-alt"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <!-- Map Section -->
+        <div class="map-container">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3452.469981368283!2d31.2359119!3d30.0444199!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x145822a1a4a1a1a1%3A0x1a4a1a1a1a1a1a1a!2sCairo%2C%20Egypt!5e0!3m2!1sen!2seg!4v1620000000000!5m2!1sen!2seg" 
+                width="100%" 
+                height="450" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy">
+            </iframe>
+        </div>
+
+        <!-- Links Section -->
+        <div class="footer-links">
+            <div class="footer-links-container">
+                <!-- About Section -->
+                <div class="footer-link-section">
+                    <a href="#" class="footer-link">
+                        عن الموقع
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                </div>
+
+                <!-- Streets Section -->
+                <div class="footer-link-section">
+                    <a href="#" class="footer-link">
+                        الشوارع
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                </div>
+
+                <!-- Places Section -->
+                <div class="footer-link-section">
+                    <a href="#" class="footer-link">
+                        اماكن للزياره
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                </div>
+
+                <!-- Contact Section -->
+                <div class="footer-link-section">
+                    <a href="#" class="footer-link">
+                        اتصل بنا
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="faq-section">
+            <div class="faq-container">
+                <h3 class="faq-title">اسئلة شائعة</h3>
+                <div class="faq-items">
+                    <div class="faq-item">
+                        <button class="faq-btn">ما هي اهم المعالم التاريخية في شارع المعز؟</button>
+                        <div class="faq-answer">
+                            <p>يضم شارع المعز العديد من المعالم التاريخية المهمة مثل مسجد الحاكم بأمر الله، وسبيل محمد علي، وقصر الأمير بشتاك، وغيرها من الآثار الإسلامية العريقة.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-btn">كيف يمكنني الوصول الى شارع المعز؟</button>
+                        <div class="faq-answer">
+                            <p>يمكن الوصول إلى شارع المعز عبر مترو الأنفاق (محطة الجمالية) أو باستخدام وسائل النقل العام أو سيارات الأجرة. كما يمكن الوصول إليه سيراً على الأقدام من منطقة الأزهر.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-btn">ما هي أفضل الأوقات لزيارة شارع المعز؟</button>
+                        <div class="faq-answer">
+                            <p>أفضل الأوقات لزيارة شارع المعز هي في الصباح الباكر أو بعد العصر، حيث يكون الطقس مناسباً للتنزه. كما يمكن زيارة الشارع في المساء للاستمتاع بالأجواء الرمضانية المميزة.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- Social Media Section -->
+        <div class="social-media">
+            <div class="social-media-container">
+                <a href="#" class="social-icon"><img src="https://img.freepik.com/free-vector/instagram-logo_1199-122.jpg?semt=ais_hybrid&w=740" alt="Instagram" style="width: 50px; height: 50px; border-radius: 25%;"></a>
+                <a href="#" class="social-icon"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6HMrE7xvKu5-UahOPBs3GcE4AZJk8LsX7tg&s" alt="Google" style="width: 50px; height: 50px; border-radius: 25%;"></a>
+                <a href="#" class="social-icon"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Facebook_logo_%28square%29.png/960px-Facebook_logo_%28square%29.png" alt="Facebook" style="width: 50px; height: 50px; border-radius: 25%;"></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Side Menu -->
+    <div id="sideMenu" class="side-menu">
+        <div class="side-menu-content">
+            <button id="closeMenu" class="close-menu">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="side-menu-logo">
+                <img src="images/logo.png" alt="Logo">
+            </div>
+                   <div class="side-menu-links">
+        <a href="streets.html">الشوارع</a>
+                <a href="places.html">اماكن مهمه للزياره</a>
+                <a href="streets.html">احجز جولتك</a>
+                <a href="characters.html">شخصيات</a>
+                 <a href="about.html">من نحن</a>
+                <a href="profile.html">الملف الشخصي</a>
+             </div>
+        </div>
+    </div>
+
+ 
+
+    <script src="script.js"></script>
+    <script>
+        // Get place data based on ID from URL
+        function getPlaceData() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const placeId = urlParams.get('id');
+            
+            // This would typically be an API call, but for now we'll use static data
+            const placesData = {
+                'beit-el-seheimy': {
+                    name: 'بيت السحيمي',
+                    overview: ' بيت السحيمي أو بيت الشيخ عبدالوهاب الطبلاوي هو بيت عربي ذو معمار شرقي متميز يقع في حارة الدرب الأصفر المتفرعة من شارع المعز لدين الله الفاطمي بحي الجماليه في قلب مدينة القاهره. يتكون البيت من قسمين احدهما قبلي والاخر بحري  ',
+                    location: 'يقع بيت السحيمي علي مشاحة نصف فدان في حارة الدوب الاصفر المتفرعه من شارع المعز لدين الله الفاطمي بحي الجمايه بمدينة القاهره، ويستخدم كمتحف لفنون العمارة الإسلامية',
+                    houseDescription: 'للبيت قسمان، القسم القبلي وهو الأقدم ، بناه الشيخ عبدالوهاب الطبلاوي عام 1648م، والقسم البحري بناه الحاج إسماعيل شلبي عام 1699م وقد ربط بالقسم الاول لبيت مثال للبيوت العربية التقليدية بنكهة قاهرية',
+                    restoration: 'للبيت قسمان، القسم القبلي وهو الأقدم ، بناه الشيخ عبدالوهاب الطبلاوي عام 1648م، والقسم البحري بناه الحاج إسماعيل شلبي عام 1699م وقد ربط بالقسم الاول لبيت مثال للبيوت العربية التقليدية بنكهة قاهرية',
+                    images: [
+                        'images/dsc_0328.jpg',
+         
+                    ]
+                },
+                'madrasa-barquq': {
+                    name: 'مدرسه السلطان برقوق',
+                     overview: ' مجموعة السلطان الظاهر برقوق أو المدرسة الظاهرية أو مسجد ومدرسة وخانقاه وقبة الظاهر برقوق هي مجموعة معمارية أثرية شهيرة بالقاهرة، مبنية على الطراز الإسلامي المملوكي. تضم المجموعة مسجدًا ومدرسة وخانقاه وقبة ضريحية. أمر بإنشائها السلطان الظاهر سيف الدين برقوق مؤسس الدولة المملوكية الثانية (الجركسية أو البرجية)، وذلك تحت إشراف الأمير جركس الخليلي أمير آخور، خلال الفترة من 786هـ/1384م إلى 788هـ/1386م.  ',
+                    location: 'تقع هذه المدرسه بشارع المعز لدين الله الفاطمي بين المدرسه الكامليه ومسجد الناصر محمد',
+                    houseDescription: 'للمدرسة أربع إيوانات يتوسطها صحن مكشوف، أهمها الإيوان الشرقي وهو إيوان القبلة المفروش والمؤزر جانباه بالرخام، وهو مقسم إلى ثلاثة أروقة أو إيوانات أكبرها أوسطها الذي يفصله عن إيواني الأطراف صفان من الأعمدة الضخمة من الجرانيت ذات تيجان ثقيلة ولكل منهما سقف ذو دلايات، أما القسم الأوسط فبصدره المحراب الملبس بالرخام الأسود على شكل شرفات في أرضية بيضاء بها فصوص صدفية وفيروزية وحمراء تعد من أدق أعمال الرخام، وسقفه مستو يتوسطه سرة مخوصة ومحلى بنقوش مذهبة، وقد حاكاه فيما بعد الأشرف برسباي في سقف الإيوان الغربي بمدرسته بالأشرفية، وبطرف الإيوان دكة المبلغ من الرخام، كما يوجد به كرسي المصحف الذي طعمت جوانبه بحشوات من السن ملبسة في الخشب.',
+                    restoration: 'من أعمال الترميم القديمة بالمجموعة منبر إيوان القبلة، وهو منبر خشبي بسيط أضافه للمجموعة السلطان الملك الظاهر سيف الدين جقمق، واسمه منقوش عليه بما نصه: «أنشأ هذا المنبر المبارك السلطان المالك الملك الظاهر محمد أبو سعيد جقمق عز نصره». وخلال القرن التاسع عشر قامت لجنة حفظ الآثار العربية بأعمال جليلة في ترميم عمارة مباني المجموعة، فأصلحت رخامها ونجارتها وقومت مبانيها وأصلحت السقوف وذهبتها',
+                    images: [
+                        'images/342.jpg',
+                        
+                    ]
+                },
+                'al-hakim-mosque': {
+                    name: 'مسجد الحاكم بامر الله',
+                     overview: 'جامع الحاكم بأمر الله مسجد بني عام 380 هـ في عهد العزيز بالله الفاطمي الذي بدأ في سنة 379هـ (989م) في بناء مسجد آخر خارج باب الفتوح ولكنه توفي قبل إتمامه فأتمّه ابنه الحاكم بأمر الله 403هـ (1012-1013م) لذا نسب إليه وصار يعرف بجامع الحاكم.',
+                     houseDescription: 'ويبلغ طوله 120,5 مترا وعرضه 113 مترا فمساحته اقل من مساحة جامع عمرو وفي نهايتى واجهته البحرية (الشمالية الغربية) وتوجد المئذنتان ويحيط بهما قاعدتان عظيمتان هـرميتا الشكل وتتركب كل قاعدة من مكعبين يعلو أحدهما الآخر والمكعب العلوى موضوع إلى الخلف قليلا فوق السفلى ويبلغ ارتفاع الأخـير ارتفاع أسوار الجامع وتبرز من كل من المكعبين العلويين مئذنة مثمنة الشكل ',
+                     restoration: 'أهمل المسجد لفترات طويلة حتى تحولت أروقته إلى مخازن لتجار الآخرين المحيطين بالمنطقة، إذ أنها منطقة تجارية، حتى عصر الرئيس أنور السادات والذي طلبت طائفة الشيعة البهرة الذي بدؤوا في الهجرة إلى مصر، الإذن بتجديده بالجهود الذاتية - ذلك أنه مكان مقدس بالنسبة لهم كما أن الحاكم بأمر الله نفسه شخصية مقدسة وتم ذلك،',
+                    location:'يقع الجامع حاليًّا بنهاية شارع المعز لدين الله الفاطمي بحي الجمالية بجوار باب الفتوح.',
+                     images: [
+                        'images/2020-637282548173822815-382.jpg',
+                        
+                    ]
+                },
+                'mohamed-ali-sabil': {
+                    name: 'سبيل محمد علي',
+                     overview: '   يطل السبيل السبيل علي شارع المعز لدين الله في حي النحاسين بواجهة مستديرة رخامية تلفت الانتباه بزخارفها الغنية من زخارف نباتية وكتابية، وتحتوي الواجهة علي أربعة شبابيك تسبيل أكبرها الشباكان في وسط الواجهة، عليها شبكات نحاسية مصبوبة علي هيئة أشكال هندسية أعلاها شكل يشبه أشعة الشمس، وأسفلها فتحات أخذ المياه علي هيئة محاريب صغيرة متجاورة تسمح بدخول الأيدي لأخذ المياه ويتوج الشبابيك عقود نصف دائرية .',
+                    location: 'يقع السبيل في شارع النحاسين في مواجهة مدرسة الناصر محمد بن قلاوون وخانقاه برقوق',
+                    houseDescription: 'السبيل من الداخل عبارة عن حجرة مربعة عدا الضلع الشمالي الغربي الذي يمثل واجهة السبيل المستديرة وبها شبابيك التسبيل أسفلها أحواض المياه، ويقع صهريج المياه في باطن الأرض أسقل حجرة التسبيل',
+                    restoration: 'قررت وزارة الآثار تحويل السبيل إلى متحف خاص بالنسيج الإسلامي حيث قامت شركة المقاولون العرب بتنفيذ مشروع تأهيل لإعادة توظيفه واستخدامه مرة أخرى لكي يتلاءم مع وظيفته كمتحف للنسيج، مثل وضع إضافات معمارية داخلية ليتناسب مع الاستخدام الجديد كعمل تجهيزات لتسهيل حركة ذوي الاحتياجات الخاصة سواء بإنشاء منحدرات أو عمل مصعد كهربي',
+                    images: [
+                        'images/AAAD_8097.jpg',
+                       
+                    ]
+                }
+            };
+
+            const placeData = placesData[placeId] || placesData['beit-el-seheimy'];
+            
+            // Update page content
+            document.getElementById('placeName').textContent = placeData.name;
+            document.getElementById('placeOverview').textContent = placeData.overview;
+            document.getElementById('placeLocation').textContent = placeData.location;
+            document.getElementById('houseDescription').textContent = placeData.houseDescription;
+            document.getElementById('restorationInfo').textContent = placeData.restoration;
+            
+            // Update slider images
+            const sliderWrapper = document.getElementById('sliderWrapper');
+            sliderWrapper.innerHTML = placeData.images.map(img => `
+                <img src="${img}" alt="${placeData.name}">
+            `).join('');
+
+            // Initialize slider
+            // let currentSlide = 0;
+            // const slides = sliderWrapper.children;
+            // const totalSlides = slides.length;
+
+            // function updateSlider() {
+            //     sliderWrapper.style.transform = `translateX(-${currentSlide * 100}%)`;
+            // }
+
+            // document.querySelector('.prev-btn').addEventListener('click', () => {
+            //     currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            //     updateSlider();
+            // });
+
+            // document.querySelector('.next-btn').addEventListener('click', () => {
+            //     currentSlide = (currentSlide + 1) % totalSlides;
+            //     updateSlider();
+            // });
+
+            // Update booking button link with the current place ID
+            const bookingButton = document.querySelector('.booking-btn');
+            if (bookingButton) {
+                bookingButton.href = `booking.html?id=${placeId}`;
+            }
+        }
+
+        // Call the function when page loads
+        window.addEventListener('load', getPlaceData);
+    </script>
+</body>
+</html> 

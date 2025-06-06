@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الشوارع - Hikayt Sharea</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+    .streets-page {
+    position: relative;
+    padding: 2rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+ 
+
+        .streets-title {
+            text-align: center;
+            color: #2d136b;
+            background-color: #dfb5af;
+            padding: 12px 22px;
+            border-radius: 20px;
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 3rem;
+            font-weight: bold;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+     
+        .street-slider-container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            padding: 0 1rem;
+            overflow: hidden;
+        }
+ 
+        .street-slider {
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding: 1rem 0;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .street-slider::-webkit-scrollbar {
+            display: none;
+        }
+
+        .street-slide {
+            min-width: 280px;
+            width: calc(20% - 0.8rem);
+            aspect-ratio: 3/4;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .street-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .favorite-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+
+        .favorite-btn i {
+            color: #890001;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .favorite-btn:hover {
+            background: #890001;
+        }
+
+        .favorite-btn:hover i {
+            color: white;
+        }
+
+        .street-info {
+            max-width: 800px;
+            margin: 3rem auto;
+            text-align: center;
+            padding: 0 1rem;
+        }
+
+        .street-name {
+            color: #890001;
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            margin-bottom: 1rem; 
+              text-align: center;
+            position: relative;
+        }
+     .street-name::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background-color: #890001;
+            border-radius: 2px;
+        }
+        .street-description {
+            color: #666;
+            font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+            line-height: 1.6;
+            /* margin-bottom: 2rem; */
+        }
+
+        .more-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #890001;
+            text-decoration: none;
+            font-size: clamp(0.9rem, 2.5vw, 1.5rem);
+            transition: color 0.3s;
+        }
+
+        .more-link:hover {
+            color: #a10f0f;
+        }
+
+        @media screen and (max-width: 1200px) {
+            .street-slide {
+                min-width: 220px;
+                width: calc(33.333% - 0.8rem);
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .street-slide {
+                min-width: 180px;
+                width: calc(50% - 0.8rem);
+            }
+
+            .streets-page {
+                padding: 1rem;
+            }
+
+            .favorite-btn {
+                width: 35px;
+                height: 35px;
+            }
+
+            .favorite-btn i {
+                font-size: 1rem;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .street-slide {
+                min-width: 150px;
+                width: calc(100% - 0.8rem);
+            }
+
+            .favorite-btn {
+                width: 30px;
+                height: 30px;
+            }
+
+            .favorite-btn i {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body class="body">
+   <div class="background-container">
+     <!-- Navbar -->
+    <nav class="navbar" style="    background-color: transparent; padding:10px 10px 45px; border-radius: 0 0 25px 25px;">
+        <div class="navbar-container">
+            <!-- Right Section -->
+            <div class="right-section">
+                <!-- Logo -->
+                <div class="logo-container">
+                    <img class="logo" src="images/logo.png" alt="Logo">
+                </div>
+                        <!--Search Box-->
+                        <div class="search-box">
+        <button class="btn-search"><i class="fas fa-search"></i></button>
+        <input type="text" class="input-search" placeholder="Type to Search...">
+      </div>
+      </div>
+
+     <!-- Center Section - Navigation Links -->
+            <div class="center-section">
+                <div class="nav-links-container" style="background-color: #dfb5af;">
+                    <div class="nav-links">
+                        <a href="streets.html" style="color: #890001; font-size: 1.1rem;">الشوارع</a>
+                        <a href="characters.html" style="color: #890001; font-size: 1.1rem;">شخصيات</a>
+                        <a href="index.html#gawalat" style="color: #890001; font-size: 1.1rem;">جولات</a>
+                        <a href="favorites.html" style="color: #890001; font-size: 1.1rem;">المفضله</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Left Section -->
+            <div class="left-section">
+                <!-- Login Button -->
+                <button class="login-button">
+                    Login
+                </button>
+                <!-- Menu Button -->
+                <button id="menuButton" class="menu-button">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Streets Page Content -->
+    <section class="streets-page">
+        <h1 class="streets-title">الشوارع</h1>
+        
+        <div class="street-slider-container">
+            <div class="street-slider">
+                <div class="street-slide">
+                    <img src="images/شارع_المُعز_لدين_الله_الفاطمى.jpg" alt="شارع المعز">
+                    <button class="favorite-btn">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+                <div class="street-slide">
+                    <img src="images/WhatsApp Image 2025-04-09 at 02.47.58_30150ce3.jpg" alt="شارع الصاغة">
+                    <button class="favorite-btn">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+                <div class="street-slide">
+                    <img src="images/Image_fx (72).jpg" alt="شارع النحاسين">
+                    <button class="favorite-btn">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+                <div class="street-slide">
+                    <img src="https://img.youm7.com/ArticleImgs/2024/2/22/159258-%D8%B4%D8%A7%D8%B1%D8%B9-%D8%A7%D9%84%D9%85%D8%B9%D8%B2.jpg" alt="شارع الخيامية">
+                    <button class="favorite-btn">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+                <div class="street-slide">
+                    <img src="images/Image_fx (74).jpg" alt="شارع الغورية">
+                    <button class="favorite-btn">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="street-info">
+            <h2 class="street-name">شارع المعز</h2>
+            <p class="street-description">
+ شارع المعز لدين الله الفاطمي أو الشارع الأعظم أو قصبة القاهرة أو قصبة القاهرة الكبرى هو شارع يمثل قلب مدينة القاهرة القديمة والذي تم تطويره لكي يكون متحفاً مفتوحاً للعمارة والآثار الإسلامية.
+            </p>
+            <a href="street-details.html?id=al-muizz" class="more-link">
+                للمزيد
+                <i class="fas fa-arrow-left"></i>
+            </a>
+        </div>
+        <div class="street-slider-container">
+            <div class="street-slider">
+                <div class="street-slide">
+                    <img src="images/WhatsApp Image 2025-04-09 at 02.57.43_d65bc80c.jpg" alt="شارع المعز">
+                    <button class="favorite-btn">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+                <div class="street-slide">
+                    <img src="images/ضض3.jpg" alt="شارع الصاغة">
+                    <button class="favorite-btn">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+                <div class="street-slide">
+                    <img src="images/hero - Copy.jpg" alt="شارع النحاسين">
+                    <button class="favorite-btn">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+                <div class="street-slide">
+                    <img src="images/guide-to-gold-jewellery-production.jpg" alt="شارع الخيامية">
+                    <button class="favorite-btn">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+                <div class="street-slide">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Wiki-100.jpg/250px-Wiki-100.jpg" alt="شارع الغورية">
+                    <button class="favorite-btn">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="street-info">
+            <h2 class="street-name"> شارع الصاغه</h2>
+            <p class="street-description">
+ لصاغه حى فى القاهره و هو ده مركز بيع الصيغه الدهب فى القاهره ، بيتفرع من شارع الموسكى قبل الازهر و بينتهى عند خان الخليلى و النحاسين. فيه محلات كتيره بتبيع الصيغه و الأحجار الكريمه ، و بيتميز بحواريه الضيقه و بيتسمى شارع الدهب.
+            </p>
+            <a href="street-details.html?id=al-sagha" class="more-link">
+                للمزيد
+                <i class="fas fa-arrow-left"></i>
+            </a>
+        </div>
+        <div class="street-slider-container">
+            <div class="street-slider">
+                <div class="street-slide">
+                    <img src="images/H1.jpg" alt="شارع المعز">
+                    <button class="favorite-btn">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+                <div class="street-slide">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiBh6vDNi3g7b18VRFCiovZZDF8n4XuqVEjffafnjFGeLU0_eUDpuPOmhdovkXKIb7x0r5hsRksoUdS_exBltpBjmzKeSYg2IUchfDrs6LWSkjTmCmF3GzoJeZ1MKJQjYjRwh0F7d3zjRKH/s1600/image+%252821%2529.jpeg" alt="شارع الصاغة">
+                    <button class="favorite-btn">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+                <div class="street-slide">
+                    <img src="images/WhatsApp Image 2025-04-09 at 00.22.50_5a4e9cc0.jpg" alt="شارع النحاسين">
+                    <button class="favorite-btn">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+                <div class="street-slide">
+                    <img src="https://m.gomhuriaonline.com/Upload/News/4-5-2019_14_25_38_GomhuriaOnline_1556972738.jpg" alt="شارع الخيامية">
+                    <button class="favorite-btn">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+                <div class="street-slide">
+                    <img src="https://s.raseef22.com/storage/attachments/1086/4_711197.jpg/r/800/image.jpg" alt="شارع الغورية">
+                    <button class="favorite-btn">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="street-info">
+            <h2 class="street-name">شارع الخياميه</h2>
+            <p class="street-description">
+                امام باب زويلة بالقرب من منطقة «تحت الربع» يقع شارع الخيامية وهو أحد أشهر أسواق القاهرة المسقوفة والذي يقع على امتداد شارع المعز وقد سمى بهذا الاسم نسبة لتلك الحرفة، فما أن تدخل ذلك الشارع حتى تجد على جنباته مجموعة من الورش التي تخصصت قي هذا النوع من التراث الفني العريق 
+            </p>
+            <a href="street-details.html?id=al-khayameya" class="more-link">
+                للمزيد
+                <i class="fas fa-arrow-left"></i>
+            </a>
+        </div>
+    </section>
+
+   </div>
+    <!-- Footer -->
+    <footer class="footer">
+        <!-- Map Section -->
+        <div class="map-container">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3452.469981368283!2d31.2359119!3d30.0444199!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x145822a1a4a1a1a1%3A0x1a4a1a1a1a1a1a1a!2sCairo%2C%20Egypt!5e0!3m2!1sen!2seg!4v1620000000000!5m2!1sen!2seg" 
+                width="100%" 
+                height="450" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy">
+            </iframe>
+        </div>
+
+        <!-- Links Section -->
+        <div class="footer-links">
+            <div class="footer-links-container">
+                <!-- About Section -->
+                <div class="footer-link-section">
+                    <a href="#" class="footer-link">
+                        عن الموقع
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                </div>
+
+                <!-- Streets Section -->
+                <div class="footer-link-section">
+                    <a href="#" class="footer-link">
+                        الشوارع
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                </div>
+
+                <!-- Places Section -->
+                <div class="footer-link-section">
+                    <a href="#" class="footer-link">
+                        اماكن للزياره
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                </div>
+
+                <!-- Contact Section -->
+                <div class="footer-link-section">
+                    <a href="#" class="footer-link">
+                        اتصل بنا
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="faq-section">
+            <div class="faq-container">
+                <h3 class="faq-title">اسئلة شائعة</h3>
+                <div class="faq-items">
+                    <div class="faq-item">
+                        <button class="faq-btn">ما هي اهم المعالم التاريخية في شارع المعز؟</button>
+                        <div class="faq-answer">
+                            <p>يضم شارع المعز العديد من المعالم التاريخية المهمة مثل مسجد الحاكم بأمر الله، وسبيل محمد علي، وقصر الأمير بشتاك، وغيرها من الآثار الإسلامية العريقة.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-btn">كيف يمكنني الوصول الى شارع المعز؟</button>
+                        <div class="faq-answer">
+                            <p>يمكن الوصول إلى شارع المعز عبر مترو الأنفاق (محطة الجمالية) أو باستخدام وسائل النقل العام أو سيارات الأجرة. كما يمكن الوصول إليه سيراً على الأقدام من منطقة الأزهر.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-btn">ما هي أفضل الأوقات لزيارة شارع المعز؟</button>
+                        <div class="faq-answer">
+                            <p>أفضل الأوقات لزيارة شارع المعز هي في الصباح الباكر أو بعد العصر، حيث يكون الطقس مناسباً للتنزه. كما يمكن زيارة الشارع في المساء للاستمتاع بالأجواء الرمضانية المميزة.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <!-- Social Media Section -->
+        <div class="social-media">
+            <div class="social-media-container">
+                <a href="#" class="social-icon"><img src="https://img.freepik.com/free-vector/instagram-logo_1199-122.jpg?semt=ais_hybrid&w=740" alt="Instagram" style="width: 50px; height: 50px; border-radius: 25%;"></a>
+                <a href="#" class="social-icon"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6HMrE7xvKu5-UahOPBs3GcE4AZJk8LsX7tg&s" alt="Google" style="width: 50px; height: 50px; border-radius: 25%;"></a>
+                <a href="#" class="social-icon"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Facebook_logo_%28square%29.png/960px-Facebook_logo_%28square%29.png" alt="Facebook" style="width: 50px; height: 50px; border-radius: 25%;"></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Side Menu -->
+    <div id="sideMenu" class="side-menu">
+        <div class="side-menu-content">
+            <button id="closeMenu" class="close-menu">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="side-menu-logo">
+                <img src="images/logo.png" alt="Logo">
+            </div>
+                     <div class="side-menu-links">
+        <a href="streets.html">الشوارع</a>
+                <a href="places.html">اماكن مهمه للزياره</a>
+                <a href="streets.html">احجز جولتك</a>
+                <a href="characters.html">شخصيات</a>
+                 <a href="about.html">من نحن</a>
+                <a href="profile.html">الملف الشخصي</a>
+             </div>
+        </div>
+    </div>
+
+ 
+
+    <script src="script.js"></script>
+    <script>
+        // Favorite button functionality
+        const favoriteBtns = document.querySelectorAll('.favorite-btn');
+        
+        favoriteBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const icon = this.querySelector('i');
+                icon.classList.toggle('far');
+                icon.classList.toggle('fas');
+            });
+        });
+    </script>
+</body>
+</html>

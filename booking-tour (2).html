@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حجز جوله - Hikayt Sharea</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .booking-page {
+            padding: 2rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .booking-title {
+            text-align: center;
+            color: #2d136b;
+            background-color: #dfb5af;
+            padding: 12px 22px;
+            border-radius: 20px;
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 2rem;
+            font-weight: bold;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .place-details {
+            max-width: 1000px;
+            margin: 0  auto 3rem;
+            text-align: right;
+        }
+        
+        .place-name {
+            color: #890001;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            padding-left: 0;
+            position: relative;
+            padding-bottom: 0.5rem;
+            text-align: right;
+        }
+        
+        .place-name::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            transform: none;
+            width: 100px;
+            height: 3px;
+            background-color: #890001;
+            border-radius: 2px;
+        }
+        
+        .place-description {
+             color: #666;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            text-align: right;
+        }
+
+        .booking-form {
+            max-width: 600px;
+            margin: 0 7rem ;
+            padding: 2rem;
+            /* background-color: #fff; */
+            /* border-radius: 15px; */
+            /* box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); */
+            text-align: right;
+        }
+
+        .form-section {
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            color: #2d136b;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 60px;
+            height: 3px;
+            background-color: #2d136b;
+            border-radius: 2px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: right;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #666;
+            font-size: 1.1rem;
+            text-align: right;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            text-align: right;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #890001;
+        }
+
+        .submit-btn {
+            background-color: #890001;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background-color: #a10f0f;
+        }
+
+        @media screen and (max-width: 768px) {
+            .booking-page {
+                padding: 1rem;
+            }
+
+            .booking-form {
+                padding: 1.5rem;
+            }
+
+            .place-name {
+                font-size: 1.8rem;
+            }
+
+            .place-description {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar" style="background-color: #890001; padding:10px 10px 45px; border-radius: 0 0 25px 25px;" dir="rtl">
+        <div class="navbar-container">
+            <!-- Right Section -->
+            <div class="right-section">
+                <!-- Logo -->
+                <div class="logo-container">
+                    <img class="logo" src="images/logo.png" alt="Logo">
+                </div>
+                <!-- Search Icon -->
+                <button id="searchButton" class="search-button" style="color: white;">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+
+            <!-- Center Section - Navigation Links -->
+            <div class="center-section">
+                <div class="nav-links-container" style="background-color: #b73204;">
+                    <div class="nav-links">
+                        <a href="index.html" style="color: white;">الرئيسية</a>
+                        <a href="#" style="color: white;">قصص</a>
+                        <a href="#" style="color: white;">عن الموقع</a>
+                        <a href="#" style="color: white;">اتصل بنا</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Left Section -->
+            <div class="left-section">
+                <!-- Login Button -->
+                <button class="login-button" style="background-color: #b73204;">
+                    Login
+                </button>
+                <!-- Menu Button -->
+                <button id="menuButton" class="menu-button" style="color: white;">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Booking Page Content -->
+    <section class="booking-page">
+        <h1 class="booking-title">حجز تذكرة</h1>
+
+        <div class="place-details">
+            <h2 class="place-name" id="placeName">اسم المكان</h2>
+            <p class="place-description" id="placeDescription">وصف المكان</p>
+        </div>
+
+        <form class="booking-form">
+            <!-- Schedule Section -->
+            <div class="form-section">
+                <h3 class="section-title">المواعيد</h3>
+                <div class="form-group">
+                    <label for="schedule">اختر اليوم</label>
+                    <select class="form-control" id="schedule" required>
+                        <option value="">اختر اليوم</option>
+                        <option value="saturday">السبت</option>
+                        <option value="sunday">الأحد</option>
+                        <option value="monday">الإثنين</option>
+                        <option value="tuesday">الثلاثاء</option>
+                        <option value="wednesday">الأربعاء</option>
+                        <option value="thursday">الخميس</option>
+                        <option value="friday">الجمعة</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Personal Information Section -->
+            <div class="form-section">
+                <h3 class="section-title">البيانات الشخصية</h3>
+                <div class="form-group">
+                    <label for="name">الاسم</label>
+                    <input type="text" class="form-control" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">التليفون</label>
+                    <input type="tel" class="form-control" id="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">البريد الإلكتروني</label>
+                    <input type="email" class="form-control" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="tickets">عدد التذاكر</label>
+                    <input type="number" class="form-control" id="tickets" min="1" max="10" required>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">تأكيد الحجز</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <!-- Map Section -->
+        <div class="map-container">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3452.469981368283!2d31.2359119!3d30.0444199!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x145822a1a4a1a1a1%3A0x1a4a1a1a1a1a1a1a!2sCairo%2C%20Egypt!5e0!3m2!1sen!2seg!4v1620000000000!5m2!1sen!2seg" 
+                width="100%" 
+                height="450" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy">
+            </iframe>
+        </div>
+
+        <!-- Links Section -->
+        <div class="footer-links">
+            <div class="footer-links-container">
+                <!-- About Section -->
+                <div class="footer-link-section">
+                    <a href="#" class="footer-link">
+                        عن الموقع
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                </div>
+
+                <!-- Streets Section -->
+                <div class="footer-link-section">
+                    <a href="#" class="footer-link">
+                        الشوارع
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                </div>
+
+                <!-- Places Section -->
+                <div class="footer-link-section">
+                    <a href="#" class="footer-link">
+                        اماكن للزياره
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                </div>
+
+                <!-- Contact Section -->
+                <div class="footer-link-section">
+                    <a href="#" class="footer-link">
+                        اتصل بنا
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="faq-section">
+            <div class="faq-container">
+                <h3 class="faq-title">اسئلة شائعة</h3>
+                <div class="faq-items">
+                    <div class="faq-item">
+                        <button class="faq-btn">ما هي اهم المعالم التاريخية في شارع المعز؟</button>
+                        <div class="faq-answer">
+                            <p>يضم شارع المعز العديد من المعالم التاريخية المهمة مثل مسجد الحاكم بأمر الله، وسبيل محمد علي، وقصر الأمير بشتاك، وغيرها من الآثار الإسلامية العريقة.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-btn">كيف يمكنني الوصول الى شارع المعز؟</button>
+                        <div class="faq-answer">
+                            <p>يمكن الوصول إلى شارع المعز عبر مترو الأنفاق (محطة الجمالية) أو باستخدام وسائل النقل العام أو سيارات الأجرة. كما يمكن الوصول إليه سيراً على الأقدام من منطقة الأزهر.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-btn">ما هي أفضل الأوقات لزيارة شارع المعز؟</button>
+                        <div class="faq-answer">
+                            <p>أفضل الأوقات لزيارة شارع المعز هي في الصباح الباكر أو بعد العصر، حيث يكون الطقس مناسباً للتنزه. كما يمكن زيارة الشارع في المساء للاستمتاع بالأجواء الرمضانية المميزة.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Social Media Section -->
+        <div class="social-media">
+            <div class="social-media-container">
+                <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="copyright">
+            <p>© 2024 Hikayt Sharea. جميع الحقوق محفوظة</p>
+        </div>
+    </footer>
+
+    <!-- Side Menu -->
+    <div id="sideMenu" class="side-menu">
+        <div class="side-menu-content">
+            <button id="closeMenu" class="close-menu">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="side-menu-logo">
+                <img src="images/logo.png" alt="Logo">
+            </div>
+            <div class="side-menu-links">
+                <a href="index.html">الرئيسية</a>
+                <a href="#">قصص</a>
+                <a href="#">عن الموقع</a>
+                <a href="#">اتصل بنا</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Overlay -->
+    <div id="searchOverlay" class="search-overlay">
+        <div class="search-container">
+            <div class="search-input-group">
+                <input type="text" class="search-input" placeholder="ابحث هنا...">
+                <button id="closeSearch" class="search-submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Get place data based on ID from URL
+        function getPlaceData() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const placeId = urlParams.get('id');
+            
+            // This would typically be an API call, but for now we'll use static data
+            const placesData = {
+                'beit-el-seheimy': {
+                    name: 'بيت السحيمي',
+                    description: 'بيت السحيمي او بيت الشيخ عبدالوهاب الطبلاوي هو بيت عربي ذو معملر شرقي متميز يثع في حارة الدرب الجماليه في قلب مدينه القاهره'
+                },
+                'madrasa-barquq': {
+                    name: 'مدرسه السلطان برقوق',
+                    description: 'هي مجموعه معماره اثريه شهيره بالقاهره. مبنيه علي الطراز الاسلامي المملوكي. تضم المجموعه مسجدا ومدرسه وخانقاه وقبة ضريحيه. امر بانشاءها السلطان الظاهر سيف الدين برقوق مؤسس الدوله المملوكية الثانية.'
+                },
+                'al-hakim-mosque': {
+                    name: 'مسجد الحاكم بامر الله',
+                    description: 'جامع الحاكم بامر الله مسجد بني عام 380هجريا في عهد العزيز بالله الفاطمي الذي بدأ في سنة 397 هجريا في بناء مسجد اخر خارج باب الفتوح ولكنه تةفي قبل اتمامه فأتمه.'
+                },
+                'mohamed-ali-sabil': {
+                    name: 'سبيل محمد علي',
+                    description: 'يطل السبيل علي شارع المعز لدين الله في حي النحاسين بواجهه مستديره رخاميه تلفت الانتباه بزخارفها الغنيه من زخارف نباتيه وكتابيه. وتحتوي الواجهة علي اربعة شبابيك تسبيل اكبرها الشباكان في وسط الواجهة.'
+                }
+            };
+
+            const placeData = placesData[placeId] || placesData['beit-el-seheimy'];
+            
+            // Update page content
+            document.getElementById('placeName').textContent = placeData.name;
+            document.getElementById('placeDescription').textContent = placeData.description;
+
+            // Update page title
+            document.title = `حجز تذكرة - ${placeData.name}`;
+        }
+
+        // Call the function when page loads
+        window.addEventListener('load', getPlaceData);
+
+        // Form submission
+        document.querySelector('.booking-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = {
+                placeId: new URLSearchParams(window.location.search).get('id'),
+                name: document.getElementById('name').value,
+                phone: document.getElementById('phone').value,
+                email: document.getElementById('email').value,
+                tickets: document.getElementById('tickets').value,
+                schedule: document.getElementById('schedule').value
+            };
+
+            // Here you would typically send the form data to a server
+            console.log('Booking data:', formData);
+            alert('تم استلام طلب الحجز بنجاح!');
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>من نحن - Hikayt Sharea</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .booking-page {
+            padding: 2rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #890001;
+            border-radius: 0 0 25px 25px;
+        }
+
+ 
+
+        .place-details {
+            max-width: 1000px;
+            margin: 0  3rem;
+            text-align: right;
+        }
+        
+        .place-name {
+            color: white;
+            font-size: 2rem;
+            margin-top: 1rem;
+             margin-bottom: 1rem;
+            padding-left: 0;
+            position: relative;
+            padding-bottom: 0.5rem;
+            text-align: right;
+        }
+        
+        .place-name::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            transform: none;
+            width: 100px;
+            height: 3px;
+            background-color: white;
+            border-radius: 2px;
+        }
+        
+        .place-description {
+             color: white;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            text-align: right;
+        }
+
+        .booking-form {
+            max-width: 600px;
+            margin: 0 7rem ;
+            padding: 2rem;
+            /* background-color: #fff; */
+            /* border-radius: 15px; */
+            /* box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); */
+            text-align: right;
+        }
+
+        .form-section {
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            color: #2d136b;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 60px;
+            height: 3px;
+            background-color: #2d136b;
+            border-radius: 2px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: right;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #666;
+            font-size: 1.1rem;
+            text-align: right;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            text-align: right;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #890001;
+        }
+
+        .submit-btn {
+            background-color: #890001;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background-color: #a10f0f;
+        }
+
+        @media screen and (max-width: 768px) {
+            .booking-page {
+                padding: 1rem;
+            }
+
+            .booking-form {
+                padding: 1.5rem;
+                 margin: 0 1rem;
+            }
+
+            .place-name {
+                font-size: 1.8rem;
+            }
+
+            .place-description {
+                font-size: 1.1rem;
+            }
+        }
+.search-box{
+    width: fit-content;
+    height: fit-content;
+    position: relative;
+  }
+  .input-search{
+    height: 50px;
+    width: 50px;
+    border-style: none;
+    padding: 10px;
+    font-size: 18px;
+    letter-spacing: 2px;
+    outline: none;
+    border-radius: 25px;
+    transition: all .5s ease-in-out;
+    background-color: transparent;
+    padding-right: 40px;
+    color:#fff;
+  }
+  .input-search::placeholder{
+    color:rgba(255,255,255,.5);
+    font-size: 18px;
+    letter-spacing: 2px;
+    font-weight: 100;
+  }
+  .btn-search{
+    width: 50px;
+    height: 50px;
+    border-style: none;
+    font-size: 20px;
+    font-weight: bold;
+    outline: none;
+    cursor: pointer;
+    border-radius: 50%;
+    position: absolute;
+    right: 0px;
+    color:#ffffff ;
+    background-color:transparent;
+    pointer-events: painted;  
+  }
+  .btn-search:focus ~ .input-search{
+    width: 300px;
+    border-radius: 0px;
+    background-color: transparent;
+    border-bottom:1px solid rgba(255,255,255,.5);
+    transition: all 500ms cubic-bezier(0, 0.110, 0.35, 2);
+  }
+  .input-search:focus{
+    width: 300px;
+    border-radius: 0px;
+    background-color: transparent;
+    border-bottom:1px solid rgba(255,255,255,.5);
+    transition: all 500ms cubic-bezier(0, 0.110, 0.35, 2);
+  }
+
+         
+  
+    </style>
+</head>
+<body>
+ 
+        <!-- Navbar -->
+        <nav class="navbar" style="background-color: #890001; padding:10px 10px 45px; " dir="rtl">
+            <div class="navbar-container">
+                <!-- Right Section -->
+                <div class="right-section">
+                    <!-- Logo -->
+                    <div class="logo-container">
+                        <img class="logo" src="images/logo.png" alt="Logo">
+                    </div>
+               <!--Search Box-->
+                        <div class="search-box">
+        <button class="btn-search"><i class="fas fa-search"></i></button>
+        <input type="text" class="input-search" placeholder="Type to Search...">
+      </div>
+                </div>
+    
+               <!-- Center Section - Navigation Links -->
+            <div class="center-section">
+                <div class="nav-links-container" style="background-color: #b73204;">
+                    <div class="nav-links">
+                        <a href="streets.html" style="color: white; font-size: 1.1rem;">الشوارع</a>
+                        <a href="characters.html" style="color: white; font-size: 1.1rem;">شخصيات</a>
+                        <a href="index.html#gawalat" style="color: white; font-size: 1.1rem;">جولات</a>
+                        <a href="favorites.html" style="color: white; font-size: 1.1rem;">المفضله</a>
+                    </div>
+                </div>
+            </div>
+    
+                <!-- Left Section -->
+                <div class="left-section">
+                    <!-- Login Button -->
+                    <button class="login-button" style="background-color: #b73204;">
+                        Login
+                    </button>
+                    <!-- Menu Button -->
+                    <button id="menuButton" class="menu-button" style="color: white;">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    
+        <!-- Booking Page Content -->
+        <section class="booking-page">
+     
+            <div class="place-details">
+                <h2 class="place-name" id="placeName">من نحن</h2>
+                <p class="place-description" id="placeDescription">مشروعنا ("حكاية الشارع") هو احتفال بهذه القصص ، تهدف إلي الحفاظ علي التراث الغني للشوارع المصرية والترويج له من خلال نهج مبتكر وتفاعلي، نسعي الي التواصل الناس - السكان المحليون والسياح علي حد سواء - الي الحكايات الخالدة التي تحدد الهويه الثقافية لمصر.</p>
+            </div>
+    
+            <div class="place-details">
+                <h2 class="place-name" id="placeName">  خلفيه تاريخيه</h2>
+                <p class="place-description" id="placeDescription">لطالما كانت شوارع مصر في قلب تاريخها النابض بالحياة من الاسواق الصاخبة الي الأزقة الهادئة ، يحتوي كل شارع علي لعب دوراً مهما في تشكيل النسيج الثقافي والاجتماعي للامة، خلال العصر الفاطمي، اصبحت فوانيس الشوارع رمز للإضاءة، ليس فقط بالمعني الحرفي ولكن كتمثيل من التنوير الفكري والثقافي في ذلك الوقت. 
+هذه عكست الفوانيس الفريده لكل شارع ، طابع وهوية محيطهم من خلال إحياء هذه القصص ومشاركتها ، نهدف إلي تسليط الضوء علي الأهمية التاريخية للشوارع المصريه ولها التطور عبر الزمن.</p>
+            </div>
+    
+            <div class="place-details">
+                <h2 class="place-name" id="placeName">الرؤيه</h2>
+                <p class="place-description" id="placeDescription">الحفاظ علي ثقافة وتاريخ شوارع مصر والاحتفاء بها من خلال انشاء تجربة سرد قصص جذابة وتعليمية وتفاعلية الذي يربط السكان المحليين والسياح بالتراث الغني لكل منهم</p>
+            </div>
+            
+            <div class="place-details">
+                <h2 class="place-name" id="placeName">مهمتنا</h2>
+                <p class="place-description" id="placeDescription">لتصميم منصة مبتكرة وبناء حملة مقنعة الذي يجمع بين البحث التاريخي والتكنولوجيا الحديثة والغامرة رواية القصص لعرض القصص الفريده لشوارع مصر ، الوعي الثقافي وتعزيز السياحة.</p>
+             </div>
+    
+            <div class="place-details">
+                <h2 class="place-name" id="placeName">تواصل معنا </h2>
+                <p class="place-description" id="placeDescription">hekayetshar33@gmail.com</p>
+                <p class="place-description" id="placeDescription">01020989395</p>
+            </div>
+    
+       
+        </section>
+ 
+    <!-- Footer -->
+    <footer class="footer" style="border-radius: -100px 100px 0 0; background-color: #dfb5af;">
+        <!-- Map Section -->
+        <div class="map-container">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3452.469981368283!2d31.2359119!3d30.0444199!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x145822a1a4a1a1a1%3A0x1a4a1a1a1a1a1a1a!2sCairo%2C%20Egypt!5e0!3m2!1sen!2seg!4v1620000000000!5m2!1sen!2seg" 
+                width="100%" 
+                height="450" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy">
+            </iframe>
+        </div>
+
+        <!-- Links Section -->
+        <div class="footer-links">
+            <div class="footer-links-container">
+                <!-- About Section -->
+                <div class="footer-link-section">
+                    <a href="#" class="footer-link" style="color: #890001;">
+                        عن الموقع
+                        <i class="fas fa-chevron-left" style="color: #890001;"></i>
+                    </a>
+                </div>
+
+                <!-- Streets Section -->
+                <div class="footer-link-section">
+                    <a href="#" class="footer-link" style="color: #890001;">
+                        الشوارع
+                        <i class="fas fa-chevron-left" style="color: #890001;"></i>
+                    </a>
+                </div>
+
+                <!-- Places Section -->
+                <div class="footer-link-section">
+                    <a href="#" class="footer-link" style="color: #890001;">
+                        اماكن للزياره
+                        <i class="fas fa-chevron-left" style="color: #890001;"></i>
+                    </a>
+                </div>
+
+                <!-- Contact Section -->
+                <div class="footer-link-section">
+                    <a href="#" class="footer-link" style="color: #890001;">
+                        اتصل بنا
+                        <i class="fas fa-chevron-left" style="color: #890001;"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="faq-section">
+            <div class="faq-container">
+                <h3 class="faq-title" style="color: #890001;">اسئلة شائعة</h3>
+                <div class="faq-items">
+                    <div class="faq-item">
+                        <button class="faq-btn" style="color: #890001;">ما هي اهم المعالم التاريخية في شارع المعز؟</button>
+                        <div class="faq-answer" style="color: #890001;">
+                            <p>يضم شارع المعز العديد من المعالم التاريخية المهمة مثل مسجد الحاكم بأمر الله، وسبيل محمد علي، وقصر الأمير بشتاك، وغيرها من الآثار الإسلامية العريقة.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item" style="color: #890001;">
+                        <button class="faq-btn" style="color: #890001;">كيف يمكنني الوصول الى شارع المعز؟</button>
+                        <div class="faq-answer" style="color: #890001;">
+                            <p>يمكن الوصول إلى شارع المعز عبر مترو الأنفاق (محطة الجمالية) أو باستخدام وسائل النقل العام أو سيارات الأجرة. كما يمكن الوصول إليه سيراً على الأقدام من منطقة الأزهر.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item" style="color: #890001;">
+                        <button class="faq-btn" style="color: #890001;">ما هي أفضل الأوقات لزيارة شارع المعز؟</button>
+                        <div class="faq-answer" style="color: #890001;">
+                            <p>أفضل الأوقات لزيارة شارع المعز هي في الصباح الباكر أو بعد العصر، حيث يكون الطقس مناسباً للتنزه. كما يمكن زيارة الشارع في المساء للاستمتاع بالأجواء الرمضانية المميزة.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+       <!-- Social Media Section -->
+        <div class="social-media">
+            <div class="social-media-container">
+                <a href="#" class="social-icon"><img src="https://img.freepik.com/free-vector/instagram-logo_1199-122.jpg?semt=ais_hybrid&w=740" alt="Instagram" style="width: 50px; height: 50px; border-radius: 25%;"></a>
+                <a href="#" class="social-icon"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6HMrE7xvKu5-UahOPBs3GcE4AZJk8LsX7tg&s" alt="Google" style="width: 50px; height: 50px; border-radius: 25%;"></a>
+                <a href="#" class="social-icon"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Facebook_logo_%28square%29.png/960px-Facebook_logo_%28square%29.png" alt="Facebook" style="width: 50px; height: 50px; border-radius: 25%;"></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Side Menu -->
+    <div id="sideMenu" class="side-menu">
+        <div class="side-menu-content">
+            <button id="closeMenu" class="close-menu">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="side-menu-logo">
+                <img src="images/logo.png" alt="Logo">
+            </div>
+              <div class="side-menu-links">
+        <a href="streets.html">الشوارع</a>
+                <a href="places.html">اماكن مهمه للزياره</a>
+                <a href="streets.html">احجز جولتك</a>
+                <a href="characters.html">شخصيات</a>
+                 <a href="about.html">من نحن</a>
+                <a href="profile.html">الملف الشخصي</a>
+             </div>
+        </div>
+    </div>
+
+ 
+
+    <script src="script.js"></script>
+     
+</body>
+</html> 

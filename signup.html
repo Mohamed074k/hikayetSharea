@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Hikayt Sharea</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .signup-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* background-color: #f8f9fa; */
+            padding: 2rem;
+        }
+
+        .signup-container {
+            /* background: white; */
+            padding: 2rem;
+            border-radius: 20px;
+            /* box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); */
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .signup-title {
+            text-align: center;
+            color: #2d136b;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            font-weight: bold;
+        }
+
+        .signup-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        .form-group input {
+            padding: 0.8rem;
+            border:1px solid rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #890001;
+        }
+
+        .profile-image-upload {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .profile-image-preview {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #dfb5af;
+            background-color: #f8f9fa;
+        }
+
+        .profile-image-overlay {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .profile-image-overlay i {
+            color: white;
+            font-size: 2.5rem;
+        }
+
+        .profile-image-upload:hover .profile-image-overlay {
+            opacity: 1;
+        }
+
+        .profile-image-upload.has-image .profile-image-overlay {
+            display: none;
+        }
+
+        .upload-btn {
+            background-color: #dfb5af;
+            color: #890001;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .upload-btn:hover {
+            background-color: #890001;
+            color: white;
+        }
+
+        .signup-btn {
+            background-color: #890001;
+            color: white;
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 1rem;
+        }
+
+        .signup-btn:hover {
+            background-color: #a10f0f;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: #666;
+        }
+
+        .login-link a {
+            color: #890001;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        @media screen and (max-width: 480px) {
+            .signup-page {
+                padding: 1rem;
+            }
+
+            .signup-container {
+                padding: 1.5rem;
+            }
+
+            .signup-title {
+                font-size: 1.5rem;
+            }
+
+            .profile-image-preview {
+                width: 100px;
+                height: 100px;
+            }
+        }
+        .search-box{
+    width: fit-content;
+    height: fit-content;
+    position: relative;
+  }
+  .input-search{
+    height: 50px;
+    width: 50px;
+    border-style: none;
+    padding: 10px;
+    font-size: 18px;
+    letter-spacing: 2px;
+    outline: none;
+    border-radius: 25px;
+    transition: all .5s ease-in-out;
+    background-color: transparent;
+    padding-right: 40px;
+    color:#fff;
+  }
+  .input-search::placeholder{
+    color:rgba(255,255,255,.5);
+    font-size: 18px;
+    letter-spacing: 2px;
+    font-weight: 100;
+  }
+  .btn-search{
+    width: 50px;
+    height: 50px;
+    border-style: none;
+    font-size: 20px;
+    font-weight: bold;
+    outline: none;
+    cursor: pointer;
+    border-radius: 50%;
+    position: absolute;
+    right: 0px;
+    color:#ffffff ;
+    background-color:transparent;
+    pointer-events: painted;  
+  }
+  .btn-search:focus ~ .input-search{
+    width: 300px;
+    border-radius: 0px;
+    background-color: transparent;
+    border-bottom:1px solid rgba(255,255,255,.5);
+    transition: all 500ms cubic-bezier(0, 0.110, 0.35, 2);
+  }
+  .input-search:focus{
+    width: 300px;
+    border-radius: 0px;
+    background-color: transparent;
+    border-bottom:1px solid rgba(255,255,255,.5);
+    transition: all 500ms cubic-bezier(0, 0.110, 0.35, 2);
+  }
+
+    </style>
+</head>
+<body dir="rtl">
+    <div class="background-container">
+
+        <!-- Navbar -->
+        <nav class="navbar" style="background-color: #890001; padding:10px 10px 45px; border-radius: 0 0 25px 25px;" dir="rtl">
+            <div class="navbar-container">
+                <!-- Right Section -->
+                <div class="right-section">
+                    <!-- Logo -->
+                    <div class="logo-container">
+                        <img class="logo" src="images/logo.png" alt="Logo">
+                    </div>
+                        <!--Search Box-->
+                        <div class="search-box">
+        <button class="btn-search"><i class="fas fa-search"></i></button>
+        <input type="text" class="input-search" placeholder="Type to Search...">
+      </div>
+      </div>
+    
+  <!-- Center Section - Navigation Links -->
+            <div class="center-section">
+                <div class="nav-links-container" style="background-color: #b73204;">
+                    <div class="nav-links">
+                        <a href="streets.html" style="color: white; font-size: 1.1rem;">الشوارع</a>
+                        <a href="characters.html" style="color: white;font-size: 1.1rem;">شخصيات</a>
+                        <a href="index.html#gawalat" style="color: white; font-size: 1.1rem;">جولات</a>
+                        <a href="favorites.html" style="color: white; font-size: 1.1rem;">المفضله</a>
+                    </div>
+                </div>
+            </div>
+    
+                <!-- Left Section -->
+                <div class="left-section">
+                    <!-- Login Button -->
+                    <button class="login-button" style="background-color: #b73204;">
+                        Login
+                    </button>
+                    <!-- Menu Button -->
+                    <button id="menuButton" class="menu-button" style="color: white;">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+        <!-- Signup Page Content -->
+        <section class="signup-page">
+            <div class="signup-container">
+                <h1 class="signup-title">Create Account</h1>
+                <form class="signup-form">
+                    <div class="profile-image-upload">
+                        <img src="images/profile-placeholder.jpg"  class="profile-image-preview" id="profilePreview">
+                        <div class="profile-image-overlay">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <label for="profileImage" class="upload-btn">
+                            <i class="fas fa-camera"></i> Choose Profile Picture
+                        </label>
+                        <input type="file" id="profileImage" accept="image/*" style="display: none;">
+                    </div>
+    
+                    <div class="form-group">
+                        <label for="name">الاسم</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+    
+                    <div class="form-group">
+                        <label for="email">البريد الالكتروني</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+    
+                    <div class="form-group">
+                        <label for="phone">رقم الهاتف</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+    
+                    <div class="form-group">
+                        <label for="password">الرقم السري</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+    
+                    <div class="form-group">
+                        <label for="confirmPassword">تأكيد الرقم السري</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" required>
+                    </div>
+    
+                    <button type="submit" class="signup-btn">Sign Up</button>
+                </form>
+    
+                <div class="login-link">
+                    Already have an account? <a href="login.html">Login</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <!-- Map Section -->
+        <div class="map-container">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3452.469981368283!2d31.2359119!3d30.0444199!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x145822a1a4a1a1a1%3A0x1a4a1a1a1a1a1a1a!2sCairo%2C%20Egypt!5e0!3m2!1sen!2seg!4v1620000000000!5m2!1sen!2seg" 
+                width="100%" 
+                height="450" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy">
+            </iframe>
+        </div>
+
+        <!-- Links Section -->
+        <div class="footer-links">
+            <div class="footer-links-container">
+                <!-- About Section -->
+                <div class="footer-link-section">
+                    <a href="#" class="footer-link">
+                        About
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                </div>
+
+               
+                <!-- Streets Section -->
+                <div class="footer-link-section">
+                    <a href="#" class="footer-link">
+                        الشوارع
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                </div>
+
+                <!-- Places Section -->
+                <div class="footer-link-section">
+                    <a href="#" class="footer-link">
+                        اماكن للزياره
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                </div>
+
+                <!-- Contact Section -->
+                <div class="footer-link-section">
+                    <a href="#" class="footer-link">
+                        اتصل بنا
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="faq-section">
+            <div class="faq-container">
+                <h3 class="faq-title">اسئلة شائعة</h3>
+                <div class="faq-items">
+                    <div class="faq-item">
+                        <button class="faq-btn">ما هي اهم المعالم التاريخية في شارع المعز؟</button>
+                        <div class="faq-answer">
+                            <p>يضم شارع المعز العديد من المعالم التاريخية المهمة مثل مسجد الحاكم بأمر الله، وسبيل محمد علي، وقصر الأمير بشتاك، وغيرها من الآثار الإسلامية العريقة.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-btn">كيف يمكنني الوصول الى شارع المعز؟</button>
+                        <div class="faq-answer">
+                            <p>يمكن الوصول إلى شارع المعز عبر مترو الأنفاق (محطة الجمالية) أو باستخدام وسائل النقل العام أو سيارات الأجرة. كما يمكن الوصول إليه سيراً على الأقدام من منطقة الأزهر.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-btn">ما هي أفضل الأوقات لزيارة شارع المعز؟</button>
+                        <div class="faq-answer">
+                            <p>أفضل الأوقات لزيارة شارع المعز هي في الصباح الباكر أو بعد العصر، حيث يكون الطقس مناسباً للتنزه. كما يمكن زيارة الشارع في المساء للاستمتاع بالأجواء الرمضانية المميزة.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+      <!-- Social Media Section -->
+        <div class="social-media">
+            <div class="social-media-container">
+                <a href="#" class="social-icon"><img src="https://img.freepik.com/free-vector/instagram-logo_1199-122.jpg?semt=ais_hybrid&w=740" alt="Instagram" style="width: 50px; height: 50px; border-radius: 25%;"></a>
+                <a href="#" class="social-icon"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6HMrE7xvKu5-UahOPBs3GcE4AZJk8LsX7tg&s" alt="Google" style="width: 50px; height: 50px; border-radius: 25%;"></a>
+                <a href="#" class="social-icon"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Facebook_logo_%28square%29.png/960px-Facebook_logo_%28square%29.png" alt="Facebook" style="width: 50px; height: 50px; border-radius: 25%;"></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Side Menu -->
+    <div id="sideMenu" class="side-menu">
+        <div class="side-menu-content">
+            <button id="closeMenu" class="close-menu">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="side-menu-logo">
+                <img src="images/logo.png" alt="Logo">
+            </div>
+          <div class="side-menu-links">
+        <a href="streets.html">الشوارع</a>
+                <a href="places.html">اماكن مهمه للزياره</a>
+                <a href="streets.html">احجز جولتك</a>
+                <a href="characters.html">شخصيات</a>
+                 <a href="about.html">من نحن</a>
+                <a href="profile.html">الملف الشخصي</a>
+             </div>
+        </div>
+    </div>
+
+ 
+
+    <script src="script.js"></script>
+    <script>
+        // Profile image upload preview
+        const profileImage = document.getElementById('profileImage');
+        const profilePreview = document.getElementById('profilePreview');
+        const profileImageUpload = document.querySelector('.profile-image-upload');
+
+        profileImage.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    profilePreview.src = e.target.result;
+                    profileImageUpload.classList.add('has-image');
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+</body>
+</html> 
